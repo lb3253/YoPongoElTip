@@ -12,8 +12,11 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Georgia', serif;
+            background: #8B4513;
+            background-image:
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,.05) 10px, rgba(0,0,0,.05) 20px),
+                linear-gradient(to bottom, #D2691E 0%, #8B4513 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -22,117 +25,212 @@
         }
 
         .container {
-            background: white;
-            border-radius: 20px;
+            background: #FFF8DC;
+            border: 8px solid #8B4513;
+            border-radius: 5px;
             padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
+            box-shadow:
+                0 0 0 3px #D2691E,
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                inset 0 0 20px rgba(139, 69, 19, 0.1);
+            max-width: 550px;
             width: 100%;
+            position: relative;
+        }
+
+        .container::before,
+        .container::after {
+            content: '🌶️';
+            position: absolute;
+            font-size: 2em;
+            top: 10px;
+        }
+
+        .container::before {
+            left: 20px;
+        }
+
+        .container::after {
+            right: 20px;
         }
 
         h1 {
             text-align: center;
-            color: #667eea;
+            color: #C41E3A;
+            margin-bottom: 10px;
+            font-size: 3em;
+            text-shadow: 3px 3px 0px #FFD700, 5px 5px 0px #8B4513;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #8B4513;
             margin-bottom: 30px;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 1.2em;
+            font-style: italic;
+            border-bottom: 3px double #8B4513;
+            padding-bottom: 15px;
         }
 
         .input-group {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         label {
             display: block;
             margin-bottom: 10px;
-            color: #333;
-            font-weight: 600;
-            font-size: 1.1em;
+            color: #8B4513;
+            font-weight: 700;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         input[type="number"] {
             width: 100%;
             padding: 15px;
-            font-size: 1.5em;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            transition: border-color 0.3s;
+            font-size: 1.8em;
+            border: 3px solid #8B4513;
+            border-radius: 5px;
+            background: #FFFACD;
+            transition: all 0.3s;
+            font-family: 'Georgia', serif;
         }
 
         input[type="number"]:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #C41E3A;
+            background: #FFF;
+            box-shadow: 0 0 10px rgba(196, 30, 58, 0.3);
+        }
+
+        .presets {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+
+        .preset-btn {
+            flex: 1;
+            padding: 15px 10px;
+            font-size: 1.3em;
+            font-weight: bold;
+            border: 3px solid #8B4513;
+            background: linear-gradient(to bottom, #FFD700 0%, #FFA500 100%);
+            color: #8B4513;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+            text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5);
+            font-family: 'Impact', sans-serif;
+        }
+
+        .preset-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to bottom, #FFA500 0%, #FFD700 100%);
+        }
+
+        .preset-btn:active {
+            transform: translateY(0);
+        }
+
+        .preset-btn.active {
+            background: linear-gradient(to bottom, #C41E3A 0%, #8B0000 100%);
+            color: #FFD700;
+            border-color: #C41E3A;
         }
 
         .slider-container {
             margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(139, 69, 19, 0.1);
+            border-radius: 10px;
+            border: 2px dashed #8B4513;
         }
 
         .slider-label {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .tip-percentage {
-            font-size: 2em;
+            font-size: 2.5em;
             font-weight: bold;
-            color: #667eea;
+            color: #C41E3A;
+            text-shadow: 2px 2px 0px #FFD700;
+            font-family: 'Impact', sans-serif;
+        }
+
+        .slider-wrapper {
+            position: relative;
+            padding: 20px 0;
         }
 
         input[type="range"] {
             width: 100%;
-            height: 10px;
+            height: 8px;
             border-radius: 5px;
-            background: #ddd;
+            background: linear-gradient(to right, #90EE90 0%, #FFD700 50%, #C41E3A 100%);
             outline: none;
             -webkit-appearance: none;
+            position: relative;
         }
 
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: #667eea;
+            width: 50px;
+            height: 60px;
             cursor: pointer;
-            transition: transform 0.2s;
+            background: transparent;
+            position: relative;
+            filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.4));
         }
 
-        input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
+        input[type="range"]::-webkit-slider-thumb::before {
+            content: '🍸';
+            font-size: 50px;
         }
 
         input[type="range"]::-moz-range-thumb {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: #667eea;
+            width: 50px;
+            height: 60px;
             cursor: pointer;
             border: none;
-            transition: transform 0.2s;
+            background: transparent;
+            filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.4));
         }
 
-        input[type="range"]::-moz-range-thumb:hover {
-            transform: scale(1.2);
+        .margarita-emoji {
+            position: absolute;
+            font-size: 50px;
+            pointer-events: none;
+            transform: translateX(-25px) translateY(-55px);
+            transition: left 0.1s ease;
         }
 
         .results {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 25px;
+            background: linear-gradient(135deg, #C41E3A 0%, #8B0000 100%);
+            border-radius: 10px;
+            padding: 30px;
             margin-top: 30px;
+            border: 4px solid #FFD700;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
         .result-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed rgba(255, 215, 0, 0.5);
         }
 
         .result-row:last-child {
@@ -142,41 +240,106 @@
         }
 
         .result-label {
-            font-size: 1.1em;
-            color: #555;
+            font-size: 1.3em;
+            color: #FFD700;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .result-value {
-            font-size: 1.5em;
+            font-size: 1.8em;
             font-weight: bold;
-            color: #333;
+            color: #FFF;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-family: 'Impact', sans-serif;
+        }
+
+        .tip-row {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 25px !important;
+            margin: -10px -10px 20px -10px;
+            border-radius: 8px;
+            border: 3px solid #FFD700 !important;
+        }
+
+        .tip-row .result-label {
+            font-size: 2em;
+            color: #FFD700;
+            text-shadow: 2px 2px 0px #8B4513;
+        }
+
+        .tip-row .result-value {
+            font-size: 3.5em;
+            color: #FFD700;
+            text-shadow:
+                3px 3px 0px #C41E3A,
+                5px 5px 10px rgba(0, 0, 0, 0.8);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .total-row .result-label {
-            font-size: 1.3em;
-            color: #667eea;
+            font-size: 1.5em;
+            color: #FFF;
         }
 
         .total-row .result-value {
-            font-size: 2em;
-            color: #667eea;
+            font-size: 2.2em;
+            color: #FFF;
+        }
+
+        .expensive-warning {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #C41E3A;
+            text-shadow:
+                2px 2px 0px #FFD700,
+                4px 4px 0px #8B4513;
+            animation: shake 0.5s infinite;
+            font-family: 'Impact', sans-serif;
+            display: none;
+        }
+
+        .expensive-warning.show {
+            display: block;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
         }
 
         @media (max-width: 600px) {
             h1 {
-                font-size: 2em;
+                font-size: 2.2em;
             }
 
             .container {
                 padding: 25px;
             }
 
-            .result-value {
-                font-size: 1.3em;
+            .preset-btn {
+                font-size: 1.1em;
+                padding: 12px 8px;
             }
 
-            .total-row .result-value {
-                font-size: 1.7em;
+            .tip-row .result-value {
+                font-size: 2.5em;
+            }
+
+            .result-value {
+                font-size: 1.5em;
+            }
+
+            .expensive-warning {
+                font-size: 1.8em;
             }
         }
     </style>
@@ -184,23 +347,33 @@
 <body>
     <div class="container">
         <h1>Yo Pongo El Tip</h1>
+        <div class="subtitle">~ Calculadora de Propinas ~</div>
 
         <div class="input-group">
-            <label for="billAmount">Monto de la Cuenta</label>
+            <label for="billAmount">💵 Monto de la Cuenta</label>
             <input type="number" id="billAmount" placeholder="$0.00" min="0" step="0.01" value="0">
+        </div>
+
+        <div class="presets">
+            <button class="preset-btn" data-tip="15">15%</button>
+            <button class="preset-btn" data-tip="20">20%</button>
+            <button class="preset-btn" data-tip="25">25%</button>
         </div>
 
         <div class="slider-container">
             <div class="slider-label">
-                <label>Porcentaje de Propina</label>
+                <label>🍹 Porcentaje de Propina</label>
                 <span class="tip-percentage" id="tipPercentageDisplay">15%</span>
             </div>
-            <input type="range" id="tipSlider" min="0" max="30" value="15" step="1">
+            <div class="slider-wrapper">
+                <input type="range" id="tipSlider" min="0" max="30" value="15" step="1">
+                <div class="margarita-emoji" id="margaritaEmoji">🍸</div>
+            </div>
         </div>
 
         <div class="results">
-            <div class="result-row">
-                <span class="result-label">Propina:</span>
+            <div class="result-row tip-row">
+                <span class="result-label">💰 Propina:</span>
                 <span class="result-value" id="tipAmount">$0.00</span>
             </div>
             <div class="result-row total-row">
@@ -208,6 +381,8 @@
                 <span class="result-value" id="totalAmount">$0.00</span>
             </div>
         </div>
+
+        <div class="expensive-warning" id="expensiveWarning">¡Puta Que Caro!</div>
     </div>
 
     <script>
@@ -216,6 +391,17 @@
         const tipPercentageDisplay = document.getElementById('tipPercentageDisplay');
         const tipAmountDisplay = document.getElementById('tipAmount');
         const totalAmountDisplay = document.getElementById('totalAmount');
+        const expensiveWarning = document.getElementById('expensiveWarning');
+        const presetButtons = document.querySelectorAll('.preset-btn');
+        const margaritaEmoji = document.getElementById('margaritaEmoji');
+
+        function updateMargaritaPosition() {
+            const slider = tipSlider;
+            const percent = (slider.value - slider.min) / (slider.max - slider.min);
+            const sliderWidth = slider.offsetWidth;
+            const emojiPosition = percent * (sliderWidth - 50);
+            margaritaEmoji.style.left = emojiPosition + 'px';
+        }
 
         function calculateTip() {
             const billAmount = parseFloat(billAmountInput.value) || 0;
@@ -227,10 +413,39 @@
             tipPercentageDisplay.textContent = tipPercentage + '%';
             tipAmountDisplay.textContent = '$' + tipAmount.toFixed(2);
             totalAmountDisplay.textContent = '$' + totalAmount.toFixed(2);
+
+            if (totalAmount > 100) {
+                expensiveWarning.classList.add('show');
+            } else {
+                expensiveWarning.classList.remove('show');
+            }
+
+            updateMargaritaPosition();
+            updateActivePreset();
         }
+
+        function updateActivePreset() {
+            const currentTip = parseInt(tipSlider.value);
+            presetButtons.forEach(btn => {
+                if (parseInt(btn.dataset.tip) === currentTip) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        presetButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tipSlider.value = btn.dataset.tip;
+                calculateTip();
+            });
+        });
 
         billAmountInput.addEventListener('input', calculateTip);
         tipSlider.addEventListener('input', calculateTip);
+
+        window.addEventListener('resize', updateMargaritaPosition);
 
         calculateTip();
     </script>
