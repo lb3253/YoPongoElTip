@@ -474,6 +474,21 @@
         billAmountInput.addEventListener('input', calculateTip);
         tipSlider.addEventListener('input', calculateTip);
 
+        // Auto-clear zero when user focuses on the input
+        billAmountInput.addEventListener('focus', function() {
+            if (parseFloat(this.value) === 0 || this.value === '0' || this.value === '') {
+                this.value = '';
+            }
+        });
+
+        // Restore zero if user leaves field empty
+        billAmountInput.addEventListener('blur', function() {
+            if (this.value === '' || this.value === null) {
+                this.value = '0';
+                calculateTip();
+            }
+        });
+
         window.addEventListener('resize', updateBeerPosition);
 
         calculateTip();
