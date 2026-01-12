@@ -192,12 +192,12 @@
 
         .margarita-icon {
             position: absolute;
-            width: 50px;
-            height: 50px;
+            width: 70px;
+            height: 70px;
             pointer-events: none;
-            transform: translateX(-25px) translateY(-50px);
+            transform: translateX(-35px) translateY(-60px);
             transition: left 0.15s ease;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.3));
         }
 
         .results {
@@ -454,64 +454,86 @@
             <div class="slider-wrapper">
                 <input type="range" id="tipSlider" min="0" max="30" value="15" step="1">
                 <div class="margarita-icon" id="margaritaIcon">
-                    <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Straw -->
-                        <rect x="65" y="5" width="4" height="45" fill="#5BC0DE" rx="2" transform="rotate(15 67 27)"/>
-                        <rect x="64" y="3" width="6" height="4" fill="#3A9FBC" rx="1" transform="rotate(15 67 5)"/>
+                    <svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <!-- Glass gradient for transparency -->
+                            <linearGradient id="glassGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#E0F7FA;stop-opacity:0.4"/>
+                                <stop offset="100%" style="stop-color:#B2EBF2;stop-opacity:0.6"/>
+                            </linearGradient>
 
-                        <!-- Glass stem -->
-                        <path d="M 45 80 L 42 100 L 58 100 L 55 80 Z" fill="#5BC0DE" stroke="#3A9FBC" stroke-width="1.5"/>
+                            <!-- Frozen margarita gradient - bright lime green -->
+                            <linearGradient id="frozenGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#CDDC39;stop-opacity:1"/>
+                                <stop offset="30%" style="stop-color:#9CCC65;stop-opacity:1"/>
+                                <stop offset="100%" style="stop-color:#7CB342;stop-opacity:1"/>
+                            </linearGradient>
+
+                            <!-- Radial gradient for highlights -->
+                            <radialGradient id="highlight" cx="40%" cy="30%">
+                                <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.6"/>
+                                <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0"/>
+                            </radialGradient>
+                        </defs>
 
                         <!-- Glass base -->
-                        <ellipse cx="50" cy="100" rx="12" ry="3" fill="#5BC0DE" stroke="#3A9FBC" stroke-width="1.5"/>
+                        <ellipse cx="60" cy="125" rx="16" ry="5" fill="#4FC3F7" opacity="0.5"/>
+                        <ellipse cx="60" cy="124" rx="14" ry="4" fill="#B2EBF2" opacity="0.7"/>
 
-                        <!-- Glass bowl -->
-                        <path d="M 30 35 Q 25 50 28 65 L 72 65 Q 75 50 70 35 Z"
-                              fill="url(#margaritaGradient)" stroke="#3A9FBC" stroke-width="2"/>
+                        <!-- Glass stem -->
+                        <path d="M 54 95 L 50 124 L 70 124 L 66 95 Z" fill="url(#glassGradient)" stroke="#00BCD4" stroke-width="1.5"/>
 
-                        <!-- Liquid -->
-                        <path d="M 31 40 Q 27 52 30 62 L 70 62 Q 73 52 69 40 Z"
-                              fill="url(#liquidGradient)"/>
+                        <!-- Main glass bowl outline -->
+                        <path d="M 25 45 Q 22 58 25 75 Q 28 88 35 95 L 85 95 Q 92 88 95 75 Q 98 58 95 45 Z"
+                              fill="url(#glassGradient)" stroke="#00BCD4" stroke-width="2.5" stroke-linejoin="round"/>
 
-                        <!-- Ice/Foam on top -->
-                        <ellipse cx="42" cy="38" rx="6" ry="4" fill="#E8F5E9" opacity="0.8"/>
-                        <ellipse cx="52" cy="36" rx="7" ry="5" fill="#E8F5E9" opacity="0.9"/>
-                        <ellipse cx="60" cy="39" rx="5" ry="4" fill="#E8F5E9" opacity="0.8"/>
+                        <!-- Frozen margarita filling -->
+                        <path d="M 27 50 Q 25 60 27 72 Q 29 83 35 90 L 85 90 Q 91 83 93 72 Q 95 60 93 50 Z"
+                              fill="url(#frozenGradient)"/>
+
+                        <!-- Frozen texture/ice chunks on top -->
+                        <ellipse cx="40" cy="48" rx="9" ry="7" fill="#E8F5E9" opacity="0.85"/>
+                        <ellipse cx="55" cy="45" rx="11" ry="8" fill="#F1F8E9" opacity="0.9"/>
+                        <ellipse cx="72" cy="47" rx="10" ry="7" fill="#E8F5E9" opacity="0.85"/>
+                        <ellipse cx="48" cy="52" rx="7" ry="5" fill="#FFFFFF" opacity="0.75"/>
+                        <ellipse cx="65" cy="51" rx="8" ry="6" fill="#FFFFFF" opacity="0.7"/>
+
+                        <!-- Additional ice texture -->
+                        <circle cx="35" cy="55" r="4" fill="#FFFFFF" opacity="0.6"/>
+                        <circle cx="78" cy="54" r="5" fill="#FFFFFF" opacity="0.65"/>
+                        <circle cx="60" cy="57" r="4" fill="#FFFFFF" opacity="0.55"/>
 
                         <!-- Salt rim -->
-                        <ellipse cx="50" cy="35" rx="20" ry="3" fill="#F0F0F0" opacity="0.9"/>
-                        <path d="M 30 35 Q 32 33 35 34 Q 38 32 41 33 Q 44 31 47 33 Q 50 32 53 33 Q 56 31 59 33 Q 62 32 65 34 Q 68 33 70 35"
-                              fill="none" stroke="#E0E0E0" stroke-width="1.5"/>
+                        <ellipse cx="60" cy="45" rx="35" ry="5" fill="#F5F5F5" opacity="0.95"/>
+                        <ellipse cx="60" cy="44" rx="35" ry="4" fill="#FAFAFA"/>
+                        <path d="M 25 45 Q 30 42 35 44 Q 40 42 45 44 Q 50 42 55 44 Q 60 42 65 44 Q 70 42 75 44 Q 80 42 85 44 Q 90 42 95 45"
+                              fill="none" stroke="#EEEEEE" stroke-width="2" opacity="0.9"/>
 
-                        <!-- Lime wedge -->
-                        <g transform="translate(15, 25)">
-                            <!-- Lime slice -->
-                            <circle cx="0" cy="0" r="10" fill="#7CB342" stroke="#558B2F" stroke-width="1.5"/>
-                            <circle cx="0" cy="0" r="7" fill="#9CCC65"/>
-                            <path d="M 0 -7 L 0 0 M -5 -5 L 0 0 M 5 -5 L 0 0 M -7 0 L 0 0 M 7 0 L 0 0 M -5 5 L 0 0 M 5 5 L 0 0"
-                                  stroke="#AED581" stroke-width="1" fill="none"/>
-                            <!-- Lime peel -->
-                            <path d="M -8 -6 Q -10 -3 -10 0 Q -10 3 -8 6"
-                                  fill="#558B2F" stroke="#33691E" stroke-width="1"/>
+                        <!-- Lime wedge on rim -->
+                        <g transform="translate(10, 35)">
+                            <ellipse cx="0" cy="0" rx="12" ry="12" fill="#558B2F"/>
+                            <circle cx="0" cy="0" r="11" fill="#7CB342" stroke="#558B2F" stroke-width="2"/>
+                            <circle cx="0" cy="0" r="8" fill="#9CCC65"/>
+                            <path d="M 0 -8 L 0 0 M -6 -6 L 0 0 M 6 -6 L 0 0 M -8 0 L 0 0 M 8 0 L 0 0 M -6 6 L 0 0 M 6 6 L 0 0"
+                                  stroke="#C5E1A5" stroke-width="1.2" fill="none"/>
+                            <path d="M -10 -7 Q -12 -4 -12 0 Q -12 4 -10 7"
+                                  fill="#558B2F" stroke="#33691E" stroke-width="1.5"/>
                         </g>
 
-                        <!-- Bubbles -->
-                        <circle cx="40" cy="50" r="2" fill="#FFFFFF" opacity="0.5"/>
-                        <circle cx="55" cy="48" r="1.5" fill="#FFFFFF" opacity="0.6"/>
-                        <circle cx="48" cy="55" r="1.8" fill="#FFFFFF" opacity="0.5"/>
+                        <!-- Straw -->
+                        <rect x="75" y="8" width="5" height="55" fill="#00BCD4" rx="2.5" transform="rotate(12 77.5 35)"/>
+                        <rect x="74" y="6" width="7" height="5" fill="#0097A7" rx="2" transform="rotate(12 77.5 8.5)"/>
+                        <rect x="75.5" y="10" width="4" height="50" fill="#4DD0E1" rx="2" opacity="0.6" transform="rotate(12 77.5 35)"/>
 
-                        <!-- Gradients -->
-                        <defs>
-                            <linearGradient id="margaritaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" style="stop-color:#B3E5FC;stop-opacity:0.3"/>
-                                <stop offset="100%" style="stop-color:#4FC3F7;stop-opacity:0.5"/>
-                            </linearGradient>
-                            <linearGradient id="liquidGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" style="stop-color:#C5E1A5;stop-opacity:0.9"/>
-                                <stop offset="50%" style="stop-color:#9CCC65;stop-opacity:0.9"/>
-                                <stop offset="100%" style="stop-color:#7CB342;stop-opacity:0.95"/>
-                            </linearGradient>
-                        </defs>
+                        <!-- Highlight on glass -->
+                        <ellipse cx="40" cy="65" rx="12" ry="18" fill="url(#highlight)" opacity="0.4"/>
+
+                        <!-- Bubbles in drink -->
+                        <circle cx="45" cy="70" r="2.5" fill="#FFFFFF" opacity="0.5"/>
+                        <circle cx="68" cy="68" r="2" fill="#FFFFFF" opacity="0.6"/>
+                        <circle cx="55" cy="75" r="2.2" fill="#FFFFFF" opacity="0.5"/>
+                        <circle cx="75" cy="73" r="1.8" fill="#FFFFFF" opacity="0.55"/>
+                        <circle cx="38" cy="78" r="2" fill="#FFFFFF" opacity="0.5"/>
                     </svg>
                 </div>
             </div>
@@ -545,7 +567,7 @@
             const slider = tipSlider;
             const percent = (slider.value - slider.min) / (slider.max - slider.min);
             const sliderWidth = slider.offsetWidth;
-            const iconPosition = percent * (sliderWidth - 50);
+            const iconPosition = percent * (sliderWidth - 70);
             margaritaIcon.style.left = iconPosition + 'px';
         }
 
