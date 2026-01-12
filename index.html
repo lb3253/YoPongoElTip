@@ -15,7 +15,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1E5BA8 0%, #003D7A 100%);
             min-height: 100vh;
             min-height: -webkit-fill-available;
             display: flex;
@@ -40,13 +40,19 @@
             width: 100%;
         }
 
-        h1 {
+        .logo-container {
             text-align: center;
-            color: #1a1a2e;
-            margin-bottom: 4px;
-            font-size: 2.5em;
-            font-weight: 700;
-            letter-spacing: -1px;
+            margin-bottom: 24px;
+        }
+
+        .logo-container svg {
+            max-width: 100%;
+            height: auto;
+            width: 320px;
+        }
+
+        h1 {
+            display: none;
         }
 
         .subtitle {
@@ -82,8 +88,8 @@
 
         input[type="number"]:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            border-color: #1E5BA8;
+            box-shadow: 0 0 0 4px rgba(30, 91, 168, 0.1);
         }
 
         .presets {
@@ -110,10 +116,10 @@
         }
 
         .preset-btn:hover {
-            border-color: #667eea;
+            border-color: #1E5BA8;
             background: #f9fafb;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+            box-shadow: 0 4px 12px rgba(30, 91, 168, 0.15);
         }
 
         .preset-btn:active {
@@ -121,10 +127,10 @@
         }
 
         .preset-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0A8754 0%, #0A8754 100%);
             color: #ffffff;
-            border-color: #667eea;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            border-color: #0A8754;
+            box-shadow: 0 4px 12px rgba(10, 135, 84, 0.3);
         }
 
         .slider-container {
@@ -145,7 +151,7 @@
         .tip-percentage {
             font-size: 2.2em;
             font-weight: 700;
-            color: #667eea;
+            color: #0A8754;
             letter-spacing: -1px;
         }
 
@@ -158,7 +164,7 @@
             width: 100%;
             height: 6px;
             border-radius: 10px;
-            background: linear-gradient(to right, #e5e7eb 0%, #667eea 50%, #764ba2 100%);
+            background: linear-gradient(to right, #F5B800 0%, #0A8754 50%, #1E5BA8 100%);
             outline: none;
             -webkit-appearance: none;
             position: relative;
@@ -193,11 +199,11 @@
         }
 
         .results {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1E5BA8 0%, #003D7A 100%);
             border-radius: 16px;
             padding: 28px;
             margin-top: 28px;
-            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 10px 40px rgba(30, 91, 168, 0.3);
         }
 
         .result-row {
@@ -290,8 +296,8 @@
                 padding: 12px;
             }
 
-            h1 {
-                font-size: 2em;
+            .logo-container svg {
+                width: 250px;
             }
 
             .subtitle {
@@ -359,8 +365,8 @@
         }
 
         @media (max-width: 375px) {
-            h1 {
-                font-size: 1.8em;
+            .logo-container svg {
+                width: 220px;
             }
 
             .tip-row .result-value {
@@ -375,6 +381,55 @@
 </head>
 <body>
     <div class="container">
+        <div class="logo-container">
+            <svg viewBox="0 0 650 180" xmlns="http://www.w3.org/2000/svg">
+                <!-- Calculator -->
+                <g transform="translate(0, 20)">
+                    <!-- Calculator body -->
+                    <rect x="10" y="10" width="150" height="150" rx="15" fill="#1E5BA8" stroke="#003D7A" stroke-width="6"/>
+
+                    <!-- Calculator screen -->
+                    <rect x="25" y="25" width="120" height="40" rx="5" fill="#ffffff"/>
+                    <text x="135" y="52" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#0A8754" text-anchor="end">TIP%</text>
+
+                    <!-- Calculator buttons -->
+                    <rect x="25" y="75" width="50" height="35" rx="5" fill="#0A8754"/>
+                    <text x="50" y="100" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#ffffff" text-anchor="middle">$</text>
+
+                    <rect x="85" y="75" width="60" height="35" rx="5" fill="#003D7A"/>
+                    <text x="115" y="100" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#ffffff" text-anchor="middle">+</text>
+
+                    <rect x="25" y="120" width="50" height="35" rx="5" fill="#003D7A"/>
+                    <text x="50" y="145" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#ffffff" text-anchor="middle">−</text>
+
+                    <rect x="85" y="120" width="60" height="35" rx="5" fill="#003D7A"/>
+                    <text x="115" y="145" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#ffffff" text-anchor="middle">=</text>
+                </g>
+
+                <!-- Dollar coin -->
+                <g transform="translate(150, 20)">
+                    <!-- Sun rays -->
+                    <rect x="20" y="-5" width="8" height="20" rx="4" fill="#F5B800" transform="rotate(-45 24 5)"/>
+                    <rect x="35" y="-10" width="8" height="25" rx="4" fill="#F5B800"/>
+                    <rect x="50" y="-5" width="8" height="20" rx="4" fill="#F5B800" transform="rotate(45 54 5)"/>
+
+                    <!-- Coin outer circle -->
+                    <circle cx="40" cy="40" r="35" fill="#0A8754" stroke="#006838" stroke-width="4"/>
+
+                    <!-- Coin inner circle -->
+                    <circle cx="40" cy="40" r="28" fill="#0FB36A" stroke="#0A8754" stroke-width="2"/>
+
+                    <!-- Dollar sign -->
+                    <text x="40" y="58" font-family="Arial, sans-serif" font-size="42" font-weight="bold" fill="#ffffff" text-anchor="middle">$</text>
+                </g>
+
+                <!-- Text: Yo Pongo -->
+                <text x="240" y="80" font-family="Arial, sans-serif" font-size="62" font-weight="bold" fill="#003D7A">Yo Pongo</text>
+
+                <!-- Text: El Tip -->
+                <text x="240" y="150" font-family="Arial, sans-serif" font-size="68" font-weight="bold" fill="#0A8754">El Tip</text>
+            </svg>
+        </div>
         <h1>Yo Pongo El Tip</h1>
         <div class="subtitle">Tip Calculator</div>
 
