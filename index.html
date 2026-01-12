@@ -48,7 +48,7 @@
         .logo-container img {
             max-width: 100%;
             height: auto;
-            width: 320px;
+            width: 450px;
         }
 
         h1 {
@@ -157,7 +157,7 @@
 
         .slider-wrapper {
             position: relative;
-            padding: 20px 0;
+            padding: 35px 0;
         }
 
         input[type="range"] {
@@ -192,12 +192,12 @@
 
         .margarita-icon {
             position: absolute;
-            width: 70px;
-            height: 70px;
+            width: 110px;
+            height: 110px;
             pointer-events: none;
-            transform: translateX(-35px) translateY(-60px);
+            transform: translateX(-55px) translateY(-90px);
             transition: left 0.15s ease;
-            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.3));
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
         }
 
         .margarita-icon img {
@@ -305,7 +305,7 @@
             }
 
             .logo-container img {
-                width: 250px;
+                width: 350px;
             }
 
             .subtitle {
@@ -374,7 +374,7 @@
 
         @media (max-width: 375px) {
             .logo-container img {
-                width: 220px;
+                width: 300px;
             }
 
             .tip-row .result-value {
@@ -447,7 +447,7 @@
             const slider = tipSlider;
             const percent = (slider.value - slider.min) / (slider.max - slider.min);
             const sliderWidth = slider.offsetWidth;
-            const iconPosition = percent * (sliderWidth - 70);
+            const iconPosition = percent * (sliderWidth - 110);
             margaritaIcon.style.left = iconPosition + 'px';
         }
 
