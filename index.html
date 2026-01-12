@@ -190,12 +190,14 @@
             filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
         }
 
-        .beer-emoji {
+        .margarita-icon {
             position: absolute;
-            font-size: 50px;
+            width: 50px;
+            height: 50px;
             pointer-events: none;
-            transform: translateX(-25px) translateY(-55px);
+            transform: translateX(-25px) translateY(-50px);
             transition: left 0.15s ease;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
         }
 
         .results {
@@ -451,7 +453,67 @@
             </div>
             <div class="slider-wrapper">
                 <input type="range" id="tipSlider" min="0" max="30" value="15" step="1">
-                <div class="beer-emoji" id="beerEmoji">🍺</div>
+                <div class="margarita-icon" id="margaritaIcon">
+                    <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Straw -->
+                        <rect x="65" y="5" width="4" height="45" fill="#5BC0DE" rx="2" transform="rotate(15 67 27)"/>
+                        <rect x="64" y="3" width="6" height="4" fill="#3A9FBC" rx="1" transform="rotate(15 67 5)"/>
+
+                        <!-- Glass stem -->
+                        <path d="M 45 80 L 42 100 L 58 100 L 55 80 Z" fill="#5BC0DE" stroke="#3A9FBC" stroke-width="1.5"/>
+
+                        <!-- Glass base -->
+                        <ellipse cx="50" cy="100" rx="12" ry="3" fill="#5BC0DE" stroke="#3A9FBC" stroke-width="1.5"/>
+
+                        <!-- Glass bowl -->
+                        <path d="M 30 35 Q 25 50 28 65 L 72 65 Q 75 50 70 35 Z"
+                              fill="url(#margaritaGradient)" stroke="#3A9FBC" stroke-width="2"/>
+
+                        <!-- Liquid -->
+                        <path d="M 31 40 Q 27 52 30 62 L 70 62 Q 73 52 69 40 Z"
+                              fill="url(#liquidGradient)"/>
+
+                        <!-- Ice/Foam on top -->
+                        <ellipse cx="42" cy="38" rx="6" ry="4" fill="#E8F5E9" opacity="0.8"/>
+                        <ellipse cx="52" cy="36" rx="7" ry="5" fill="#E8F5E9" opacity="0.9"/>
+                        <ellipse cx="60" cy="39" rx="5" ry="4" fill="#E8F5E9" opacity="0.8"/>
+
+                        <!-- Salt rim -->
+                        <ellipse cx="50" cy="35" rx="20" ry="3" fill="#F0F0F0" opacity="0.9"/>
+                        <path d="M 30 35 Q 32 33 35 34 Q 38 32 41 33 Q 44 31 47 33 Q 50 32 53 33 Q 56 31 59 33 Q 62 32 65 34 Q 68 33 70 35"
+                              fill="none" stroke="#E0E0E0" stroke-width="1.5"/>
+
+                        <!-- Lime wedge -->
+                        <g transform="translate(15, 25)">
+                            <!-- Lime slice -->
+                            <circle cx="0" cy="0" r="10" fill="#7CB342" stroke="#558B2F" stroke-width="1.5"/>
+                            <circle cx="0" cy="0" r="7" fill="#9CCC65"/>
+                            <path d="M 0 -7 L 0 0 M -5 -5 L 0 0 M 5 -5 L 0 0 M -7 0 L 0 0 M 7 0 L 0 0 M -5 5 L 0 0 M 5 5 L 0 0"
+                                  stroke="#AED581" stroke-width="1" fill="none"/>
+                            <!-- Lime peel -->
+                            <path d="M -8 -6 Q -10 -3 -10 0 Q -10 3 -8 6"
+                                  fill="#558B2F" stroke="#33691E" stroke-width="1"/>
+                        </g>
+
+                        <!-- Bubbles -->
+                        <circle cx="40" cy="50" r="2" fill="#FFFFFF" opacity="0.5"/>
+                        <circle cx="55" cy="48" r="1.5" fill="#FFFFFF" opacity="0.6"/>
+                        <circle cx="48" cy="55" r="1.8" fill="#FFFFFF" opacity="0.5"/>
+
+                        <!-- Gradients -->
+                        <defs>
+                            <linearGradient id="margaritaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#B3E5FC;stop-opacity:0.3"/>
+                                <stop offset="100%" style="stop-color:#4FC3F7;stop-opacity:0.5"/>
+                            </linearGradient>
+                            <linearGradient id="liquidGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#C5E1A5;stop-opacity:0.9"/>
+                                <stop offset="50%" style="stop-color:#9CCC65;stop-opacity:0.9"/>
+                                <stop offset="100%" style="stop-color:#7CB342;stop-opacity:0.95"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
             </div>
         </div>
 
@@ -477,14 +539,14 @@
         const totalAmountDisplay = document.getElementById('totalAmount');
         const expensiveWarning = document.getElementById('expensiveWarning');
         const presetButtons = document.querySelectorAll('.preset-btn');
-        const beerEmoji = document.getElementById('beerEmoji');
+        const margaritaIcon = document.getElementById('margaritaIcon');
 
-        function updateBeerPosition() {
+        function updateMargaritaPosition() {
             const slider = tipSlider;
             const percent = (slider.value - slider.min) / (slider.max - slider.min);
             const sliderWidth = slider.offsetWidth;
-            const emojiPosition = percent * (sliderWidth - 50);
-            beerEmoji.style.left = emojiPosition + 'px';
+            const iconPosition = percent * (sliderWidth - 50);
+            margaritaIcon.style.left = iconPosition + 'px';
         }
 
         function calculateTip() {
@@ -504,7 +566,7 @@
                 expensiveWarning.classList.remove('show');
             }
 
-            updateBeerPosition();
+            updateMargaritaPosition();
             updateActivePreset();
         }
 
@@ -544,7 +606,7 @@
             }
         });
 
-        window.addEventListener('resize', updateBeerPosition);
+        window.addEventListener('resize', updateMargaritaPosition);
 
         calculateTip();
     </script>
