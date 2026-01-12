@@ -173,21 +173,21 @@
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 50px;
-            height: 60px;
+            width: 1px;
+            height: 1px;
             cursor: pointer;
             background: transparent;
-            position: relative;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+            border: none;
+            opacity: 0;
         }
 
         input[type="range"]::-moz-range-thumb {
-            width: 50px;
-            height: 60px;
+            width: 1px;
+            height: 1px;
             cursor: pointer;
             border: none;
             background: transparent;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+            opacity: 0;
         }
 
         .margarita-icon {
@@ -195,9 +195,11 @@
             width: 110px;
             height: 110px;
             pointer-events: none;
-            transform: translateX(-55px) translateY(-90px);
+            transform: translateX(-55px) translateY(-105px);
             transition: left 0.15s ease;
             filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+            left: 0;
+            top: 50%;
         }
 
         .margarita-icon img {
