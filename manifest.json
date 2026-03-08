@@ -1,0 +1,18 @@
+{
+    "name": "Yo Pongo El Tip",
+    "short_name": "El Tip",
+    "description": "Tip Calculator",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#1E5BA8",
+    "theme_color": "#1E5BA8",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "YoPongoElTip.png",
+            "sizes": "any",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}
