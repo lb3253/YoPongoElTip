@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
     <!-- PWA Manifest (Android + modern browsers) -->
     <link rel="manifest" href="manifest.json">
@@ -50,6 +50,29 @@
                 0 0 0 1px rgba(255, 255, 255, 0.1);
             max-width: 500px;
             width: 100%;
+            position: relative;
+        }
+
+        .lang-toggle {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            min-width: 44px;
+            height: 36px;
+            padding: 0 8px;
+            font-size: 0.85em;
+            font-weight: 700;
+            font-family: inherit;
+            color: #1E5BA8;
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .lang-toggle:active {
+            background: #f3f4f6;
         }
 
         .logo-container {
@@ -231,6 +254,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 10px;
             margin-bottom: 20px;
             padding-bottom: 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -272,12 +296,22 @@
             font-size: 3.2em;
             color: #ffffff;
             text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
-            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* One quick pulse each time the tip changes */
+        .tip-row .result-value.pulse {
+            animation: pulse 0.35s ease-out;
         }
 
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            50% { transform: scale(1.08); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .tip-row .result-value.pulse {
+                animation: none;
+            }
         }
 
         .total-row .result-label {
@@ -395,8 +429,20 @@
         }
 
         @media (max-width: 375px) {
+            .lang-toggle {
+                top: 8px;
+                right: 8px;
+                min-width: 40px;
+                height: 32px;
+                padding: 0 6px;
+            }
+
             .logo-container img {
                 width: 200px;
+            }
+
+            .tip-row {
+                padding: 10px 12px !important;
             }
 
             .tip-row .result-value {
@@ -411,14 +457,15 @@
 </head>
 <body>
     <div class="container">
+        <button type="button" class="lang-toggle" id="langToggle"></button>
         <div class="logo-container">
-            <img src="YoPongoElTip.png" alt="Yo Pongo El Tip Logo">
+            <img src="YoPongoElTip.webp" alt="Yo Pongo El Tip" width="843" height="352">
         </div>
         <h1>Yo Pongo El Tip</h1>
-        <div class="subtitle">Tip Calculator</div>
+        <div class="subtitle" data-i18n="subtitle">Tip Calculator</div>
 
         <div class="input-group">
-            <label for="billAmount">Bill Amount</label>
+            <label for="billAmount" data-i18n="bill">Bill Amount</label>
             <input type="text" id="billAmount" placeholder="$0.00" value="0" inputmode="decimal" autocomplete="off">
         </div>
 
@@ -430,29 +477,29 @@
 
         <div class="slider-container">
             <div class="slider-label">
-                <label>Tip Percentage</label>
+                <label id="tipSliderLabel" data-i18n="tipPercent">Tip Percentage</label>
                 <span class="tip-percentage" id="tipPercentageDisplay">15%</span>
             </div>
             <div class="slider-wrapper">
-                <input type="range" id="tipSlider" min="0" max="30" value="15" step="1">
+                <input type="range" id="tipSlider" min="0" max="30" value="15" step="1" aria-labelledby="tipSliderLabel">
                 <div class="margarita-icon" id="margaritaIcon">
-                    <img src="MargSlider.png" alt="Margarita Slider Icon">
+                    <img src="MargSlider.webp" alt="">
                 </div>
             </div>
         </div>
 
         <div class="results">
             <div class="result-row tip-row">
-                <span class="result-label">Tip</span>
+                <span class="result-label" data-i18n="tip">Tip</span>
                 <span class="result-value" id="tipAmount">$0.00</span>
             </div>
             <div class="result-row total-row">
-                <span class="result-label">Total</span>
+                <span class="result-label" data-i18n="total">Total</span>
                 <span class="result-value" id="totalAmount">$0.00</span>
             </div>
         </div>
 
-        <div class="version">v1.2.0</div>
+        <div class="version">v1.3.0</div>
     </div>
 
     <script>
@@ -473,16 +520,19 @@
             margaritaIcon.style.left = thumbCenter + 'px';
         }
 
-        // Accepts "12.50" or "12,50". The last separator is the decimal point,
-        // unless exactly 3 digits follow it ("1,234" / "1.234" = thousands).
+        // Accepts "12.50" or "12,50". The last separator is the decimal point
+        // ("0.005", "12.345" stay decimals). Earlier separators are thousands
+        // ("1,234.56" / "1.234,56"), and so is one that repeats ("1.234.567").
         function parseAmount(text) {
             const cleaned = text.replace(/[^\d.,]/g, '');
             const lastSep = Math.max(cleaned.lastIndexOf('.'), cleaned.lastIndexOf(','));
             if (lastSep === -1) return Number(cleaned) || 0;
 
+            const sep = cleaned[lastSep];
+            if (cleaned.indexOf(sep) !== lastSep) return Number(cleaned.replace(/[.,]/g, '')) || 0;
+
             const whole = cleaned.slice(0, lastSep).replace(/[.,]/g, '');
             const fraction = cleaned.slice(lastSep + 1);
-            if (fraction.length === 3) return Number(whole + fraction) || 0;
             return Number((whole || '0') + '.' + fraction) || 0;
         }
 
@@ -494,7 +544,14 @@
             const totalAmount = billAmount + tipAmount;
 
             tipPercentageDisplay.textContent = tipPercentage + '%';
-            tipAmountDisplay.textContent = '$' + tipAmount.toFixed(2);
+            const tipText = '$' + tipAmount.toFixed(2);
+            if (tipAmountDisplay.textContent !== tipText) {
+                tipAmountDisplay.textContent = tipText;
+                // Restart the pulse animation
+                tipAmountDisplay.classList.remove('pulse');
+                void tipAmountDisplay.offsetWidth;
+                tipAmountDisplay.classList.add('pulse');
+            }
             totalAmountDisplay.textContent = '$' + totalAmount.toFixed(2);
 
             updateMargaritaPosition();
@@ -543,6 +600,54 @@
         });
 
         window.addEventListener('resize', updateMargaritaPosition);
+
+        // English / Spanish text. The button shows the language you can switch to.
+        const translations = {
+            en: {
+                subtitle: 'Tip Calculator',
+                bill: 'Bill Amount',
+                tipPercent: 'Tip Percentage',
+                tip: 'Tip',
+                total: 'Total',
+                toggle: 'ES',
+                toggleLabel: 'Cambiar a español'
+            },
+            es: {
+                subtitle: 'Calculadora de propinas',
+                bill: 'Monto de la cuenta',
+                tipPercent: 'Porcentaje de propina',
+                tip: 'Propina',
+                total: 'Total',
+                toggle: 'EN',
+                toggleLabel: 'Switch to English'
+            }
+        };
+        const langToggle = document.getElementById('langToggle');
+        let currentLang;
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            const text = translations[lang];
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                el.textContent = text[el.dataset.i18n];
+            });
+            langToggle.textContent = text.toggle;
+            langToggle.setAttribute('aria-label', text.toggleLabel);
+            langToggle.lang = lang === 'en' ? 'es' : 'en';
+        }
+
+        langToggle.addEventListener('click', () => {
+            const lang = currentLang === 'en' ? 'es' : 'en';
+            setLanguage(lang);
+            try { localStorage.setItem('lang', lang); } catch (e) {}
+        });
+
+        // Use the saved choice, otherwise the phone's language
+        let savedLang = null;
+        try { savedLang = localStorage.getItem('lang'); } catch (e) {}
+        const phoneLang = (navigator.language || '').toLowerCase().startsWith('es') ? 'es' : 'en';
+        setLanguage(translations[savedLang] ? savedLang : phoneLang);
 
         calculateTip();
     </script>
