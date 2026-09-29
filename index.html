@@ -50,29 +50,6 @@
                 0 0 0 1px rgba(255, 255, 255, 0.1);
             max-width: 500px;
             width: 100%;
-            position: relative;
-        }
-
-        .lang-toggle {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            min-width: 44px;
-            height: 36px;
-            padding: 0 8px;
-            font-size: 0.85em;
-            font-weight: 700;
-            font-family: inherit;
-            color: #1E5BA8;
-            background: #ffffff;
-            border: 2px solid #e5e7eb;
-            border-radius: 10px;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .lang-toggle:active {
-            background: #f3f4f6;
         }
 
         .logo-container {
@@ -102,7 +79,7 @@
             margin-bottom: 24px;
         }
 
-        label {
+        label, .label {
             display: block;
             margin-bottom: 8px;
             color: #374151;
@@ -153,23 +130,17 @@
         .preset-btn:hover {
             border-color: #1E5BA8;
             background: #f9fafb;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(30, 91, 168, 0.15);
-        }
-
-        .preset-btn:active {
-            transform: translateY(0);
         }
 
         .preset-btn.active {
-            background: linear-gradient(135deg, #0A8754 0%, #0A8754 100%);
+            background: #0A8754;
             color: #ffffff;
             border-color: #0A8754;
             box-shadow: 0 4px 12px rgba(10, 135, 84, 0.3);
         }
 
         .slider-container {
-            margin-bottom: 32px;
+            margin-bottom: 20px;
             padding: 24px;
             background: #f9fafb;
             border-radius: 16px;
@@ -181,6 +152,10 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+        }
+
+        .slider-label .label {
+            margin-bottom: 0;
         }
 
         .tip-percentage {
@@ -242,11 +217,89 @@
             object-fit: contain;
         }
 
+        /* People counter + round-up toggle */
+        .options {
+            display: flex;
+            gap: 12px;
+            align-items: stretch;
+        }
+
+        .people {
+            flex: 1.4;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 6px 6px 6px 14px;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+        }
+
+        .people .label {
+            margin: 0;
+        }
+
+        .stepper {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .step-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 2px solid #e5e7eb;
+            background: #ffffff;
+            color: #1E5BA8;
+            font-size: 1.4em;
+            font-weight: 700;
+            line-height: 1;
+            cursor: pointer;
+            font-family: inherit;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .step-btn:disabled {
+            color: #d1d5db;
+            cursor: default;
+        }
+
+        #peopleCount {
+            min-width: 28px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .round-btn {
+            flex: 1;
+            min-height: 52px;
+            padding: 6px 10px;
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+            background: #ffffff;
+            color: #374151;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .round-btn.active {
+            background: #0A8754;
+            color: #ffffff;
+            border-color: #0A8754;
+        }
+
         .results {
             background: linear-gradient(135deg, #1E5BA8 0%, #003D7A 100%);
             border-radius: 16px;
             padding: 28px;
-            margin-top: 28px;
+            margin-top: 20px;
             box-shadow: 0 10px 40px rgba(30, 91, 168, 0.3);
         }
 
@@ -254,7 +307,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 10px;
             margin-bottom: 20px;
             padding-bottom: 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -264,6 +316,10 @@
             border-bottom: none;
             margin-bottom: 0;
             padding-bottom: 0;
+        }
+
+        .result-row[hidden] {
+            display: none;
         }
 
         .result-label {
@@ -276,42 +332,41 @@
             font-size: 1.6em;
             font-weight: 700;
             color: #ffffff;
+            font-variant-numeric: tabular-nums;
         }
 
-        .tip-row {
+        .highlight-row {
             background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
             padding: 28px !important;
             margin: -8px -8px 24px -8px;
             border-radius: 12px;
             border: 2px solid rgba(255, 255, 255, 0.3) !important;
         }
 
-        .tip-row .result-label {
+        .highlight-row .result-label {
             font-size: 1.4em;
             color: #ffffff;
         }
 
-        .tip-row .result-value {
+        .highlight-row .result-value {
             font-size: 3.2em;
             color: #ffffff;
             text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
         }
 
-        /* One quick pulse each time the tip changes */
-        .tip-row .result-value.pulse {
-            animation: pulse 0.35s ease-out;
+        /* A quick "pop" when the number changes, instead of pulsing forever */
+        .pop {
+            animation: pop 0.3s ease-out;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
+        @keyframes pop {
+            0% { transform: scale(1); }
+            40% { transform: scale(1.08); }
+            100% { transform: scale(1); }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .tip-row .result-value.pulse {
-                animation: none;
-            }
+            .pop { animation: none; }
         }
 
         .total-row .result-label {
@@ -322,9 +377,38 @@
             font-size: 2em;
         }
 
-        .version {
-            text-align: center;
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-top: 12px;
+        }
+
+        .lang-toggle {
+            display: flex;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            border: none;
+            background: #ffffff;
+            color: #6b7280;
+            cursor: pointer;
+            font-family: inherit;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .lang-btn.active {
+            background: #1E5BA8;
+            color: #ffffff;
+        }
+
+        .version {
             font-size: 0.75em;
             color: #9ca3af;
         }
@@ -335,7 +419,7 @@
             }
 
             .container {
-                padding: 14px 14px 16px;
+                padding: 14px 14px 12px;
                 border-radius: 20px;
             }
 
@@ -344,7 +428,7 @@
             }
 
             .logo-container img {
-                width: 240px;
+                width: 220px;
             }
 
             .subtitle {
@@ -355,7 +439,7 @@
                 margin-bottom: 10px;
             }
 
-            label {
+            label, .label {
                 margin-bottom: 4px;
             }
 
@@ -380,16 +464,25 @@
                 margin-bottom: 10px;
             }
 
-            .slider-label {
-                margin-bottom: 0;
-            }
-
             .tip-percentage {
                 font-size: 1.6em;
             }
 
+            .slider-label {
+                margin-bottom: 0;
+            }
+
             .slider-wrapper {
                 padding: 58px 0 50px;
+            }
+
+            .options {
+                gap: 10px;
+            }
+
+            .round-btn {
+                min-height: 52px;
+                font-size: 0.95em;
             }
 
             .results {
@@ -402,16 +495,16 @@
                 padding-bottom: 8px;
             }
 
-            .tip-row {
+            .highlight-row {
                 padding: 10px 16px !important;
                 margin: 0 0 8px 0;
             }
 
-            .tip-row .result-label {
+            .highlight-row .result-label {
                 font-size: 1.2em;
             }
 
-            .tip-row .result-value {
+            .highlight-row .result-value {
                 font-size: 2.4em;
             }
 
@@ -423,43 +516,35 @@
                 font-size: 1.6em;
             }
 
-            .version {
+            .footer {
                 margin-top: 8px;
             }
         }
 
         @media (max-width: 375px) {
-            .lang-toggle {
-                top: 8px;
-                right: 8px;
-                min-width: 40px;
-                height: 32px;
-                padding: 0 6px;
-            }
-
             .logo-container img {
-                width: 200px;
+                width: 190px;
             }
 
-            .tip-row {
-                padding: 10px 12px !important;
-            }
-
-            .tip-row .result-value {
+            .highlight-row .result-value {
                 font-size: 2.1em;
             }
 
             .preset-btn {
                 font-size: 0.95em;
             }
+
+            .step-btn {
+                width: 36px;
+                height: 36px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <button type="button" class="lang-toggle" id="langToggle"></button>
         <div class="logo-container">
-            <img src="YoPongoElTip.webp" alt="Yo Pongo El Tip" width="843" height="352">
+            <img src="logo.webp" alt="Yo Pongo El Tip" width="843" height="352">
         </div>
         <h1>Yo Pongo El Tip</h1>
         <div class="subtitle" data-i18n="subtitle">Tip Calculator</div>
@@ -477,19 +562,35 @@
 
         <div class="slider-container">
             <div class="slider-label">
-                <label id="tipSliderLabel" data-i18n="tipPercent">Tip Percentage</label>
+                <span class="label" data-i18n="tipPct">Tip Percentage</span>
                 <span class="tip-percentage" id="tipPercentageDisplay">15%</span>
             </div>
             <div class="slider-wrapper">
-                <input type="range" id="tipSlider" min="0" max="30" value="15" step="1" aria-labelledby="tipSliderLabel">
+                <input type="range" id="tipSlider" min="0" max="30" value="15" step="1" aria-label="Tip percentage">
                 <div class="margarita-icon" id="margaritaIcon">
-                    <img src="MargSlider.webp" alt="">
+                    <img src="marg.webp" alt="">
                 </div>
             </div>
         </div>
 
+        <div class="options">
+            <div class="people">
+                <span class="label" data-i18n="people">People</span>
+                <div class="stepper">
+                    <button class="step-btn" id="peopleMinus" aria-label="Fewer people">−</button>
+                    <span id="peopleCount" aria-live="polite">1</span>
+                    <button class="step-btn" id="peoplePlus" aria-label="More people">+</button>
+                </div>
+            </div>
+            <button class="round-btn" id="roundBtn" aria-pressed="false" data-i18n="roundUp">Round up</button>
+        </div>
+
         <div class="results">
-            <div class="result-row tip-row">
+            <div class="result-row highlight-row" id="eachRow" hidden>
+                <span class="result-label" data-i18n="each">Each person</span>
+                <span class="result-value" id="eachAmount">$0.00</span>
+            </div>
+            <div class="result-row" id="tipRow">
                 <span class="result-label" data-i18n="tip">Tip</span>
                 <span class="result-value" id="tipAmount">$0.00</span>
             </div>
@@ -499,17 +600,77 @@
             </div>
         </div>
 
-        <div class="version">v1.3.0</div>
+        <div class="footer">
+            <div class="lang-toggle" role="group" aria-label="Language / Idioma">
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="es">ES</button>
+            </div>
+            <div class="version">v1.3.0</div>
+        </div>
     </div>
 
     <script>
-        const billAmountInput = document.getElementById('billAmount');
-        const tipSlider = document.getElementById('tipSlider');
-        const tipPercentageDisplay = document.getElementById('tipPercentageDisplay');
-        const tipAmountDisplay = document.getElementById('tipAmount');
-        const totalAmountDisplay = document.getElementById('totalAmount');
+        const MAX_PEOPLE = 20;
+        const MAX_BILL = 1000000;
+
+        const TEXT = {
+            en: {
+                subtitle: 'Tip Calculator',
+                bill: 'Bill Amount',
+                tipPct: 'Tip Percentage',
+                people: 'People',
+                roundUp: 'Round up',
+                each: 'Each person',
+                tip: 'Tip',
+                total: 'Total',
+                sliderAria: 'Tip percentage',
+                minusAria: 'Fewer people',
+                plusAria: 'More people'
+            },
+            es: {
+                subtitle: 'Calculadora de propina',
+                bill: 'Cuenta',
+                tipPct: 'Porcentaje',
+                people: 'Personas',
+                roundUp: 'Redondear',
+                each: 'Por persona',
+                tip: 'Propina',
+                total: 'Total',
+                sliderAria: 'Porcentaje de propina',
+                minusAria: 'Menos personas',
+                plusAria: 'Más personas'
+            }
+        };
+
+        const $ = id => document.getElementById(id);
+        const billAmountInput = $('billAmount');
+        const tipSlider = $('tipSlider');
+        const tipPercentageDisplay = $('tipPercentageDisplay');
+        const tipAmountDisplay = $('tipAmount');
+        const totalAmountDisplay = $('totalAmount');
+        const eachAmountDisplay = $('eachAmount');
+        const eachRow = $('eachRow');
+        const tipRow = $('tipRow');
+        const peopleCountDisplay = $('peopleCount');
+        const peopleMinus = $('peopleMinus');
+        const peoplePlus = $('peoplePlus');
+        const roundBtn = $('roundBtn');
         const presetButtons = document.querySelectorAll('.preset-btn');
-        const margaritaIcon = document.getElementById('margaritaIcon');
+        const langButtons = document.querySelectorAll('.lang-btn');
+        const margaritaIcon = $('margaritaIcon');
+
+        let people = 1;
+        let roundUp = false;
+        let lang = 'en';
+
+        // Saved settings (tip %, language). Wrapped in try/catch because
+        // private browsing can block storage; the app still works without it.
+        function load(key) {
+            try { return localStorage.getItem(key); } catch (e) { return null; }
+        }
+        function save(key, value) {
+            try { localStorage.setItem(key, value); } catch (e) { /* ignore */ }
+        }
 
         // Center the glass over the invisible native thumb, which is as wide as the icon
         function updateMargaritaPosition() {
@@ -520,69 +681,134 @@
             margaritaIcon.style.left = thumbCenter + 'px';
         }
 
-        // Accepts "12.50" or "12,50". The last separator is the decimal point
-        // ("0.005", "12.345" stay decimals). Earlier separators are thousands
-        // ("1,234.56" / "1.234,56"), and so is one that repeats ("1.234.567").
+        // Turns what was typed into a number of dollars.
+        //   "45.50" / "45,50" -> 45.50     "1,234" / "1,234.56" -> thousands
+        //   A dot is always the decimal point; only 2 decimals are kept,
+        //   so "0.005" is $0.00 (not $5) and "12.345" is $12.34 (not $12,345).
         function parseAmount(text) {
-            const cleaned = text.replace(/[^\d.,]/g, '');
-            const lastSep = Math.max(cleaned.lastIndexOf('.'), cleaned.lastIndexOf(','));
-            if (lastSep === -1) return Number(cleaned) || 0;
+            let s = text.replace(/[^\d.,]/g, '');
+            s = s.replace(/,(?=\d{3}(?:\D|$))/g, ''); // comma + 3 digits = thousands
+            s = s.replace(/,/g, '.');                  // any other comma = decimal
+            const dot = s.indexOf('.');
+            if (dot !== -1) {
+                s = s.slice(0, dot + 1) + s.slice(dot + 1).replace(/\./g, '').slice(0, 2);
+            }
+            const n = Number(s);
+            return Number.isFinite(n) ? Math.min(n, MAX_BILL) : 0;
+        }
 
-            const sep = cleaned[lastSep];
-            if (cleaned.indexOf(sep) !== lastSep) return Number(cleaned.replace(/[.,]/g, '')) || 0;
+        function money(cents) {
+            return '$' + (cents / 100).toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
 
-            const whole = cleaned.slice(0, lastSep).replace(/[.,]/g, '');
-            const fraction = cleaned.slice(lastSep + 1);
-            return Number((whole || '0') + '.' + fraction) || 0;
+        function setValue(el, text) {
+            if (el.textContent === text) return;
+            el.textContent = text;
+            el.classList.remove('pop');
+            void el.offsetWidth; // restart the animation
+            el.classList.add('pop');
         }
 
         function calculateTip() {
-            const billAmount = parseAmount(billAmountInput.value);
-            const tipPercentage = parseInt(tipSlider.value);
+            // Work in cents so there are no rounding surprises like $10.000000001
+            const billCents = Math.round(parseAmount(billAmountInput.value) * 100);
+            const tipPercentage = parseInt(tipSlider.value, 10);
 
-            const tipAmount = billAmount * (tipPercentage / 100);
-            const totalAmount = billAmount + tipAmount;
+            let totalCents = billCents + Math.round(billCents * tipPercentage / 100);
+            let eachCents;
+
+            if (roundUp) {
+                // Round each person's share up to a whole dollar
+                eachCents = Math.ceil(totalCents / people / 100) * 100;
+                totalCents = eachCents * people;
+            } else {
+                // Round each share up to the cent so the group never comes up short
+                eachCents = Math.ceil(totalCents / people);
+                if (people > 1) totalCents = eachCents * people;
+            }
+
+            const tipCents = totalCents - billCents;
 
             tipPercentageDisplay.textContent = tipPercentage + '%';
-            const tipText = '$' + tipAmount.toFixed(2);
-            if (tipAmountDisplay.textContent !== tipText) {
-                tipAmountDisplay.textContent = tipText;
-                // Restart the pulse animation
-                tipAmountDisplay.classList.remove('pulse');
-                void tipAmountDisplay.offsetWidth;
-                tipAmountDisplay.classList.add('pulse');
-            }
-            totalAmountDisplay.textContent = '$' + totalAmount.toFixed(2);
+            setValue(tipAmountDisplay, money(tipCents));
+            setValue(totalAmountDisplay, money(totalCents));
+            setValue(eachAmountDisplay, money(eachCents));
+
+            // When splitting, "Each person" becomes the big number; otherwise the tip is
+            const splitting = people > 1;
+            eachRow.hidden = !splitting;
+            tipRow.classList.toggle('highlight-row', !splitting);
 
             updateMargaritaPosition();
             updateActivePreset();
         }
 
         function updateActivePreset() {
-            const currentTip = parseInt(tipSlider.value);
+            const currentTip = parseInt(tipSlider.value, 10);
             presetButtons.forEach(btn => {
-                if (parseInt(btn.dataset.tip) === currentTip) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
+                btn.classList.toggle('active', parseInt(btn.dataset.tip, 10) === currentTip);
             });
+        }
+
+        function setPeople(n) {
+            people = Math.max(1, Math.min(MAX_PEOPLE, n));
+            peopleCountDisplay.textContent = people;
+            peopleMinus.disabled = people === 1;
+            peoplePlus.disabled = people === MAX_PEOPLE;
+            calculateTip();
+        }
+
+        function setLanguage(newLang) {
+            lang = TEXT[newLang] ? newLang : 'en';
+            const t = TEXT[lang];
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                el.textContent = t[el.dataset.i18n];
+            });
+            tipSlider.setAttribute('aria-label', t.sliderAria);
+            peopleMinus.setAttribute('aria-label', t.minusAria);
+            peoplePlus.setAttribute('aria-label', t.plusAria);
+            langButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
+            save('lang', lang);
         }
 
         presetButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 tipSlider.value = btn.dataset.tip;
+                save('tip', tipSlider.value);
                 calculateTip();
             });
         });
 
-        // Only digits and decimal separators can be typed or pasted (no minus signs or letters)
+        // Only digits and decimal separators can be typed or pasted (no minus signs or letters),
+        // and no more than 2 digits after a dot
         billAmountInput.addEventListener('input', function() {
-            const cleaned = this.value.replace(/[^\d.,]/g, '');
+            const cleaned = this.value.replace(/[^\d.,]/g, '').replace(/(\.\d{2})\d+$/, '$1');
             if (cleaned !== this.value) this.value = cleaned;
             calculateTip();
         });
-        tipSlider.addEventListener('input', calculateTip);
+
+        tipSlider.addEventListener('input', () => {
+            save('tip', tipSlider.value);
+            calculateTip();
+        });
+
+        peopleMinus.addEventListener('click', () => setPeople(people - 1));
+        peoplePlus.addEventListener('click', () => setPeople(people + 1));
+
+        roundBtn.addEventListener('click', () => {
+            roundUp = !roundUp;
+            roundBtn.classList.toggle('active', roundUp);
+            roundBtn.setAttribute('aria-pressed', roundUp);
+            calculateTip();
+        });
+
+        langButtons.forEach(btn => {
+            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+        });
 
         // Auto-clear zero when user focuses on the input
         billAmountInput.addEventListener('focus', function() {
@@ -593,7 +819,7 @@
 
         // Restore zero if user leaves field empty
         billAmountInput.addEventListener('blur', function() {
-            if (this.value === '' || this.value === null) {
+            if (this.value === '') {
                 this.value = '0';
                 calculateTip();
             }
@@ -601,55 +827,22 @@
 
         window.addEventListener('resize', updateMargaritaPosition);
 
-        // English / Spanish text. The button shows the language you can switch to.
-        const translations = {
-            en: {
-                subtitle: 'Tip Calculator',
-                bill: 'Bill Amount',
-                tipPercent: 'Tip Percentage',
-                tip: 'Tip',
-                total: 'Total',
-                toggle: 'ES',
-                toggleLabel: 'Cambiar a español'
-            },
-            es: {
-                subtitle: 'Calculadora de propinas',
-                bill: 'Monto de la cuenta',
-                tipPercent: 'Porcentaje de propina',
-                tip: 'Propina',
-                total: 'Total',
-                toggle: 'EN',
-                toggleLabel: 'Switch to English'
-            }
-        };
-        const langToggle = document.getElementById('langToggle');
-        let currentLang;
+        // Start up: saved language, or the phone's language the first time
+        const savedLang = load('lang');
+        const phoneLang = (navigator.language || 'en').toLowerCase().startsWith('es') ? 'es' : 'en';
+        setLanguage(savedLang || phoneLang);
 
-        function setLanguage(lang) {
-            currentLang = lang;
-            const text = translations[lang];
-            document.documentElement.lang = lang;
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                el.textContent = text[el.dataset.i18n];
+        const savedTip = parseInt(load('tip'), 10);
+        if (savedTip >= 0 && savedTip <= 30) tipSlider.value = savedTip;
+
+        setPeople(1);
+
+        // Offline support: saves the app on the phone so it opens without internet
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').catch(() => {});
             });
-            langToggle.textContent = text.toggle;
-            langToggle.setAttribute('aria-label', text.toggleLabel);
-            langToggle.lang = lang === 'en' ? 'es' : 'en';
         }
-
-        langToggle.addEventListener('click', () => {
-            const lang = currentLang === 'en' ? 'es' : 'en';
-            setLanguage(lang);
-            try { localStorage.setItem('lang', lang); } catch (e) {}
-        });
-
-        // Use the saved choice, otherwise the phone's language
-        let savedLang = null;
-        try { savedLang = localStorage.getItem('lang'); } catch (e) {}
-        const phoneLang = (navigator.language || '').toLowerCase().startsWith('es') ? 'es' : 'en';
-        setLanguage(translations[savedLang] ? savedLang : phoneLang);
-
-        calculateTip();
     </script>
 </body>
 </html>

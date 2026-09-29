@@ -7,7 +7,11 @@ A simple and elegant tip calculator web application.
 - **Input Bill Amount**: Type in the total amount of your bill
 - **Horizontal Slider**: Scroll left to right to select tip percentage (0-30%)
 - **Real-time Calculation**: See tip amount and total instantly
-- **English / Español**: Tap the EN/ES button to switch languages (starts in your phone's language)
+- **Split the Bill**: Choose 1–20 people and see what each person pays
+- **Round Up**: Round each person's share up to a whole dollar
+- **English / Español**: Follows the phone's language, with a manual toggle
+- **Works Offline**: Opens with no internet once it has been visited
+- **Remembers Your Tip**: Keeps your last tip percentage and language
 - **Responsive Design**: Works on desktop and mobile devices
 - **Beautiful UI**: Modern gradient design with smooth animations
 
