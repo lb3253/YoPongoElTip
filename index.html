@@ -11,7 +11,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="El Tip">
-    <link rel="apple-touch-icon" href="YoPongoElTip.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 
     <!-- Theme color for browser chrome (Android) -->
     <meta name="theme-color" content="#1E5BA8">
@@ -86,7 +87,7 @@
             font-size: 0.95em;
         }
 
-        input[type="number"] {
+        #billAmount {
             width: 100%;
             padding: 16px;
             font-size: 1.8em;
@@ -97,7 +98,7 @@
             font-family: inherit;
         }
 
-        input[type="number"]:focus {
+        #billAmount:focus {
             outline: none;
             border-color: #1E5BA8;
             box-shadow: 0 0 0 4px rgba(30, 91, 168, 0.1);
@@ -206,8 +207,7 @@
             width: 110px;
             height: 110px;
             pointer-events: none;
-            transform: translateX(-55px) translateY(-58px);
-            transition: left 0.15s ease;
+            transform: translateX(-50%) translateY(-58px);
             filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
             left: 0;
             top: 50%;
@@ -314,53 +314,80 @@
 
         @media (max-width: 600px) {
             body {
-                padding: 12px;
-            }
-
-            .logo-container img {
-                width: 350px;
-            }
-
-            .subtitle {
-                font-size: 0.9em;
-                margin-bottom: 24px;
+                padding: 8px;
             }
 
             .container {
-                padding: 24px 20px;
+                padding: 14px 14px 16px;
+                border-radius: 20px;
+            }
+
+            .logo-container {
+                margin-bottom: 6px;
+            }
+
+            .logo-container img {
+                width: 240px;
+            }
+
+            .subtitle {
+                display: none;
             }
 
             .input-group {
-                margin-bottom: 20px;
+                margin-bottom: 10px;
             }
 
-            input[type="number"] {
-                font-size: 1.6em;
-                padding: 14px;
+            label {
+                margin-bottom: 4px;
+            }
+
+            #billAmount {
+                font-size: 1.5em;
+                padding: 8px 14px;
             }
 
             .presets {
                 gap: 10px;
-                margin-bottom: 24px;
+                margin-bottom: 10px;
             }
 
             .preset-btn {
                 font-size: 1.05em;
-                padding: 14px 8px;
-                min-height: 48px;
+                padding: 8px;
+                min-height: 44px;
             }
 
             .slider-container {
-                padding: 20px 16px;
-                margin-bottom: 24px;
+                padding: 10px 14px 0;
+                margin-bottom: 10px;
+            }
+
+            .slider-label {
+                margin-bottom: 0;
             }
 
             .tip-percentage {
-                font-size: 1.8em;
+                font-size: 1.6em;
+            }
+
+            .slider-wrapper {
+                padding: 58px 0 50px;
+            }
+
+            .results {
+                padding: 12px 14px;
+                margin-top: 10px;
+            }
+
+            .result-row {
+                margin-bottom: 8px;
+                padding-bottom: 8px;
             }
 
             .tip-row {
-                padding: 24px !important;
+                padding: 10px 16px !important;
+                margin: 0 0 8px 0;
             }
 
             .tip-row .result-label {
@@ -368,7 +395,7 @@
             }
 
             .tip-row .result-value {
-                font-size: 2.6em;
+                font-size: 2.4em;
             }
 
             .result-value {
@@ -376,22 +403,23 @@
             }
 
             .total-row .result-value {
-                font-size: 1.8em;
+                font-size: 1.6em;
             }
 
             .expensive-warning {
-                font-size: 1.5em;
-                padding: 14px;
+                font-size: 1.3em;
+                padding: 8px;
+                margin-top: 10px;
             }
         }
 
         @media (max-width: 375px) {
             .logo-container img {
-                width: 300px;
+                width: 200px;
             }
 
             .tip-row .result-value {
-                font-size: 2.2em;
+                font-size: 2.1em;
             }
 
             .preset-btn {
@@ -410,7 +438,7 @@
 
         <div class="input-group">
             <label for="billAmount">Bill Amount</label>
-            <input type="number" id="billAmount" placeholder="$0.00" min="0" step="0.01" value="0" inputmode="decimal">
+            <input type="text" id="billAmount" placeholder="$0.00" value="0" inputmode="decimal" autocomplete="off">
         </div>
 
         <div class="presets">
@@ -456,16 +484,30 @@
         const presetButtons = document.querySelectorAll('.preset-btn');
         const margaritaIcon = document.getElementById('margaritaIcon');
 
+        // Center the glass over the invisible native thumb, which is as wide as the icon
         function updateMargaritaPosition() {
             const slider = tipSlider;
             const percent = (slider.value - slider.min) / (slider.max - slider.min);
-            const sliderWidth = slider.offsetWidth;
-            const iconPosition = percent * (sliderWidth - 110);
-            margaritaIcon.style.left = iconPosition + 'px';
+            const thumbWidth = margaritaIcon.offsetWidth;
+            const thumbCenter = thumbWidth / 2 + percent * (slider.offsetWidth - thumbWidth);
+            margaritaIcon.style.left = thumbCenter + 'px';
+        }
+
+        // Accepts "12.50" or "12,50". The last separator is the decimal point,
+        // unless exactly 3 digits follow it ("1,234" / "1.234" = thousands).
+        function parseAmount(text) {
+            const cleaned = text.replace(/[^\d.,]/g, '');
+            const lastSep = Math.max(cleaned.lastIndexOf('.'), cleaned.lastIndexOf(','));
+            if (lastSep === -1) return Number(cleaned) || 0;
+
+            const whole = cleaned.slice(0, lastSep).replace(/[.,]/g, '');
+            const fraction = cleaned.slice(lastSep + 1);
+            if (fraction.length === 3) return Number(whole + fraction) || 0;
+            return Number((whole || '0') + '.' + fraction) || 0;
         }
 
         function calculateTip() {
-            const billAmount = parseFloat(billAmountInput.value) || 0;
+            const billAmount = parseAmount(billAmountInput.value);
             const tipPercentage = parseInt(tipSlider.value);
 
             const tipAmount = billAmount * (tipPercentage / 100);
@@ -503,12 +545,17 @@
             });
         });
 
-        billAmountInput.addEventListener('input', calculateTip);
+        // Only digits and decimal separators can be typed or pasted (no minus signs or letters)
+        billAmountInput.addEventListener('input', function() {
+            const cleaned = this.value.replace(/[^\d.,]/g, '');
+            if (cleaned !== this.value) this.value = cleaned;
+            calculateTip();
+        });
         tipSlider.addEventListener('input', calculateTip);
 
         // Auto-clear zero when user focuses on the input
         billAmountInput.addEventListener('focus', function() {
-            if (parseFloat(this.value) === 0 || this.value === '0' || this.value === '') {
+            if (parseAmount(this.value) === 0) {
                 this.value = '';
             }
         });
