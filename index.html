@@ -288,28 +288,11 @@
             font-size: 2em;
         }
 
-        .expensive-warning {
+        .version {
             text-align: center;
-            margin-top: 20px;
-            padding: 16px;
-            font-size: 1.8em;
-            font-weight: 700;
-            color: #ef4444;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            animation: shake 0.5s infinite;
-            display: none;
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
-        }
-
-        .expensive-warning.show {
-            display: block;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-4px); }
-            75% { transform: translateX(4px); }
+            margin-top: 12px;
+            font-size: 0.75em;
+            color: #9ca3af;
         }
 
         @media (max-width: 600px) {
@@ -406,10 +389,8 @@
                 font-size: 1.6em;
             }
 
-            .expensive-warning {
-                font-size: 1.3em;
-                padding: 8px;
-                margin-top: 10px;
+            .version {
+                margin-top: 8px;
             }
         }
 
@@ -471,7 +452,7 @@
             </div>
         </div>
 
-        <div class="expensive-warning" id="expensiveWarning">¡Puta Que Caro!</div>
+        <div class="version">v1.2.0</div>
     </div>
 
     <script>
@@ -480,7 +461,6 @@
         const tipPercentageDisplay = document.getElementById('tipPercentageDisplay');
         const tipAmountDisplay = document.getElementById('tipAmount');
         const totalAmountDisplay = document.getElementById('totalAmount');
-        const expensiveWarning = document.getElementById('expensiveWarning');
         const presetButtons = document.querySelectorAll('.preset-btn');
         const margaritaIcon = document.getElementById('margaritaIcon');
 
@@ -516,12 +496,6 @@
             tipPercentageDisplay.textContent = tipPercentage + '%';
             tipAmountDisplay.textContent = '$' + tipAmount.toFixed(2);
             totalAmountDisplay.textContent = '$' + totalAmount.toFixed(2);
-
-            if (totalAmount > 100) {
-                expensiveWarning.classList.add('show');
-            } else {
-                expensiveWarning.classList.remove('show');
-            }
 
             updateMargaritaPosition();
             updateActivePreset();
